@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Header from '../components.js/Header';
+import '../styles/Search.css';
 
 export default class Search extends Component {
   constructor() {
@@ -35,6 +36,7 @@ export default class Search extends Component {
         <Header />
         <form>
           <input
+            className="input-search"
             type="text"
             data-testid="search-artist-input"
             name="search"

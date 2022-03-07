@@ -1,0 +1,8 @@
+form {
+  display: flex;
+  padding: 20px;
+}
+
+.input-search {
+  margin-right: 5px;
+}
