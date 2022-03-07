@@ -66,7 +66,7 @@ export default class Login extends Component {
               </form>
             )
         }
-        {loggedIn && <Redirect to="search" />}
+        {loggedIn && <Redirect to="/search" />}
       </div>
     );
   }
