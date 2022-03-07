@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-/* import searchAlbumsAPI from '../services/searchAlbumsAPI'; */
 import Header from '../components.js/Header';
 
 export default class Search extends Component {
@@ -11,17 +10,26 @@ export default class Search extends Component {
     };
   }
 
-  handleChange = ({ target }) => {
-    const { value } = target;
-    const minLengthInput = 2;
+  handleSearch = () => {
+    const { search } = this.state;
+    const minLengthSearch = 2;
+    const validationSearch = search.length < minLengthSearch;
 
-    this.setState(() => ({
-      buttonDisabled: value.length < minLengthInput,
-    }));
+    this.setState({
+      buttonDisabled: validationSearch,
+    });
+  }
+
+  handleChange = ({ target }) => {
+    const { name, value } = target;
+
+    this.setState({
+      [name]: value,
+    }, this.handleSearch);
   }
 
   render() {
-    const { buttonDisabled } = this.state;
+    const { search, buttonDisabled } = this.state;
     return (
       <div data-testid="page-search">
         <Header />
@@ -29,11 +37,14 @@ export default class Search extends Component {
           <input
             type="text"
             data-testid="search-artist-input"
+            name="search"
+            value={ search }
+            onChange={ this.handleChange }
           />
 
           <button
             type="button"
-            testid="search-artist-button"
+            data-testid="search-artist-button"
             disabled={ buttonDisabled }
           >
             Pesquisar
