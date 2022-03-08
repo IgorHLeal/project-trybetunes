@@ -18,3 +18,23 @@ header nav {
 header nav > link {
   text-decoration: none;
 }
+
+.page-search {
+  display: flex;
+  flex-direction: column;
+  top: 0;
+}
+
+.card-album {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  max-width: 100%;
+  padding: 10px;
+}
+
+.result-albums, .not-album {
+  font-size: 2.3rem;
+  text-align: center;
+}

@@ -75,9 +75,15 @@ export default class Search extends Component {
                     Pesquisar
                   </button>
                 </form>
-                <div>
-                  <div>{artist && `Resultado de álbuns de: ${artist}`}</div>
-                  <div>{searchArtist.length === 0 && 'Nenhum álbum foi encontrado'}</div>
+
+                <div className="result-albums">
+                  {artist && `Resultado de álbuns de: ${artist}`}
+                </div>
+
+                <div className="not-album">
+                  {searchArtist.length === 0 && 'Nenhum álbum foi encontrado'}
+                </div>
+                <div className="card-album">
                   {searchArtist.map((album) => (
                     <div key={ album.collectionId }>
                       <div>{album.artistName}</div>
