@@ -42,7 +42,7 @@ export default class Login extends Component {
   }
 
   render() {
-    const { buttonDisabled, loading, loggedIn } = this.state;
+    const { buttonDisabled, loading, loggedIn, name } = this.state;
     return (
       <div data-testid="page-login">
         {
@@ -53,6 +53,7 @@ export default class Login extends Component {
                 <input
                   data-testid="login-name-input"
                   type="text"
+                  value={ name }
                   onChange={ this.handleChange }
                 />
                 <button

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components.js/Header';
+import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import '../styles/Search.css';
+import Loading from './Loading';
 
 export default class Search extends Component {
   constructor() {
@@ -8,50 +11,88 @@ export default class Search extends Component {
 
     this.state = {
       buttonDisabled: true,
+      searchArtist: [],
+      artistName: '',
+      loading: false,
+      artist: '',
     };
   }
 
-  handleSearch = () => {
-    const { search } = this.state;
-    const minLengthSearch = 2;
-    const validationSearch = search.length < minLengthSearch;
+  handleChange = ({ target }) => {
+    const { value } = target;
+    const minLengthInput = 2;
 
+    this.setState(() => ({
+      artistName: value,
+      buttonDisabled: value.length < minLengthInput,
+    }));
+  }
+
+  // Requisito 6 - Concluído com ajuda do Guilherme Cunha - Turma 19A
+  handleSearchArtist = () => {
+    const { artistName } = this.state;
     this.setState({
-      buttonDisabled: validationSearch,
+      loading: true,
+    },
+    async () => {
+      const returnArtist = await searchAlbumsAPI(artistName);
+      this.setState({
+        loading: false,
+        artistName: '',
+        searchArtist: returnArtist,
+        artist: artistName,
+      });
     });
   }
 
-  handleChange = ({ target }) => {
-    const { name, value } = target;
-
-    this.setState({
-      [name]: value,
-    }, this.handleSearch);
-  }
-
   render() {
-    const { search, buttonDisabled } = this.state;
+    const { buttonDisabled, artistName, loading, searchArtist, artist } = this.state;
     return (
       <div data-testid="page-search">
-        <Header />
-        <form>
-          <input
-            className="input-search"
-            type="text"
-            data-testid="search-artist-input"
-            name="search"
-            value={ search }
-            onChange={ this.handleChange }
-          />
+        {
+          (loading === true)
+            ? (<Loading />)
+            : (
+              <>
+                <Header />
 
-          <button
-            type="button"
-            data-testid="search-artist-button"
-            disabled={ buttonDisabled }
-          >
-            Pesquisar
-          </button>
-        </form>
+                <form>
+                  <input
+                    className="input-search"
+                    type="text"
+                    data-testid="search-artist-input"
+                    name="artistName"
+                    value={ artistName }
+                    onChange={ this.handleChange }
+                  />
+
+                  <button
+                    type="button"
+                    data-testid="search-artist-button"
+                    disabled={ buttonDisabled }
+                    onClick={ this.handleSearchArtist }
+                  >
+                    Pesquisar
+                  </button>
+                </form>
+                <div>
+                  <div>{artist && `Resultado de álbuns de: ${artist}`}</div>
+                  <div>{searchArtist.length === 0 && 'Nenhum álbum foi encontrado'}</div>
+                  {searchArtist.map((album) => (
+                    <div key={ album.collectionId }>
+                      <div>{album.artistName}</div>
+                      <div>{album.collectionName}</div>
+                      <img src={ album.artworkUrl100 } alt={ album.collectionName } />
+                      <Link
+                        data-testid={ `link-to-album-${album.collectionId}` }
+                        to={ `/album/${album.collectionId}` }
+                      />
+                    </div>
+                  ))}
+                </div>
+              </>
+            )
+        }
       </div>
     );
   }
