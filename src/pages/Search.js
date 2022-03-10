@@ -54,6 +54,7 @@ export default class Search extends Component {
             ? (<Loading />)
             : (
               <>
+                <Header />
                 <form>
                   <input
                     className="input-search"
@@ -74,8 +75,6 @@ export default class Search extends Component {
                   </button>
                 </form>
 
-                <Header />
-
                 <div className="result-albums">
                   {artist && `Resultado de álbuns de: ${artist}`}
                 </div>
@@ -86,14 +85,13 @@ export default class Search extends Component {
                 <div className="card-album">
                   {searchArtist.map((album) => (
                     <div key={ album.collectionId }>
-                      <div>{album.artistName}</div>
-                      <div>{album.collectionName}</div>
-                      <img src={ album.artworkUrl100 } alt={ album.collectionName } />
                       <Link
                         data-testid={ `link-to-album-${album.collectionId}` }
                         to={ `/album/${album.collectionId}` }
                       >
-                        Music
+                        <div>{album.artistName}</div>
+                        <div>{album.collectionName}</div>
+                        <img src={ album.artworkUrl100 } alt={ album.collectionName } />
                       </Link>
                     </div>
                   ))}
