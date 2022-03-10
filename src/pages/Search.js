@@ -54,8 +54,6 @@ export default class Search extends Component {
             ? (<Loading />)
             : (
               <>
-                <Header />
-
                 <form>
                   <input
                     className="input-search"
@@ -76,6 +74,8 @@ export default class Search extends Component {
                   </button>
                 </form>
 
+                <Header />
+
                 <div className="result-albums">
                   {artist && `Resultado de álbuns de: ${artist}`}
                 </div>
@@ -92,7 +92,9 @@ export default class Search extends Component {
                       <Link
                         data-testid={ `link-to-album-${album.collectionId}` }
                         to={ `/album/${album.collectionId}` }
-                      />
+                      >
+                        Music
+                      </Link>
                     </div>
                   ))}
                 </div>
