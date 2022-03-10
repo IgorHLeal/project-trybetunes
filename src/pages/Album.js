@@ -18,9 +18,9 @@ export default class Album extends Component {
   // this.props.match.params.id
 
   async componentDidMount() {
-    const { match } = this.props;
-    const { id } = match.params;
-    /* const { match: { params: { id } } } = this.props; */
+    /* const { match } = this.props;
+    const { id } = match.params; */
+    const { match: { params: { id } } } = this.props;
     /* console.log(match); */
     const result = await getMusics(id);
     /* console.log(result); */
