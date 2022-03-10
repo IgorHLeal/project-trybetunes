@@ -53,7 +53,7 @@ export default class Search extends Component {
           (loading === true)
             ? (<Loading />)
             : (
-              <>
+              <div>
                 <Header />
                 <form>
                   <input
@@ -96,7 +96,7 @@ export default class Search extends Component {
                     </div>
                   ))}
                 </div>
-              </>
+              </div>
             )
         }
       </div>
