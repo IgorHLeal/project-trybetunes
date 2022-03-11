@@ -47,7 +47,7 @@ export default class Login extends Component {
       <div data-testid="page-login">
         {
           loading
-            ? <Loading />
+            ? (<Loading />)
             : (
               <form>
                 <input
