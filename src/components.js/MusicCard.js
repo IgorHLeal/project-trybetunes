@@ -13,7 +13,7 @@ export default class MusicCard extends Component {
     };
   }
 
-  // Usar a mesma lógica do component Login ou Álbum para essa função
+  // Usar a mesma lógica do component Login para essa função
   // Concluído na mentoria com ajuda do Braddock e dos colegas André Alves e Hugo Mafra - Turma 19A
   handleChange = ({ target }) => {
     const { checked } = target;
@@ -72,10 +72,10 @@ export default class MusicCard extends Component {
 }
 
 MusicCard.propTypes = {
-  id: PropTypes.string.isRequired,
   music: PropTypes.shape({
     trackName: PropTypes.string,
     previewUrl: PropTypes.string,
     trackId: PropTypes.number,
   }).isRequired,
+  id: PropTypes.string.isRequired,
 };
