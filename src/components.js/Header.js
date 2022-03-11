@@ -28,7 +28,7 @@ export default class Header extends Component {
     return (
       <header data-testid="header-component" className="header-component">
         {
-          (loading === true)
+          loading
             ? (<Loading />)
             : (
               <div>

@@ -49,12 +49,12 @@ export default class Search extends Component {
     const { buttonDisabled, artistName, loading, searchArtist, artist } = this.state;
     return (
       <div data-testid="page-search">
+        <Header />
         {
-          (loading === true)
+          loading
             ? (<Loading />)
             : (
               <div>
-                <Header />
                 <form>
                   <input
                     className="input-search"

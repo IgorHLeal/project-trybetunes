@@ -30,7 +30,7 @@ export default class Album extends Component {
       <div data-testid="page-album">
         <Header />
         {
-          (loading === true)
+          loading
             ? (<Loading />)
             : (
               <>
