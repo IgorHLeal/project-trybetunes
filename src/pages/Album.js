@@ -15,8 +15,6 @@ export default class Album extends Component {
     };
   }
 
-  // this.props.match.params.id
-
   async componentDidMount() {
     const { match: { params: { id } } } = this.props;
     const result = await getMusics(id);
@@ -26,30 +24,6 @@ export default class Album extends Component {
     });
   }
 
-  /* handleChange = ({ target }) => {
-    const { value } = target;
-
-    this.setState({
-      collectionId: value,
-    });
-  }
-
-  handleChangeMusic = () => {
-    const { collectionId } = this.state;
-    this.setState({
-      loading: true,
-    },
-    async () => {
-      const returnMusic = await getMusics(collectionId);
-      console.log(returnMusic);
-      this.setState({
-        loading: false,
-        collectionId: '',
-        searchMusics: returnMusic,
-      });
-    });
-  }
- */
   render() {
     const { loading, searchMusics } = this.state;
     return (
@@ -71,10 +45,6 @@ export default class Album extends Component {
                 {searchMusics.map((music, index) => (
                   index > 0 && <MusicCard music={ music } key={ music.trackId } />
                 ))}
-
-                {/* <div className="card-music">
-                  {searchMusics.map}
-                </div> */}
               </>
             )
         }

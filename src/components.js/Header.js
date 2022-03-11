@@ -27,16 +27,23 @@ export default class Header extends Component {
     const { name, loading } = this.state;
     return (
       <header data-testid="header-component" className="header-component">
-        { loading && <Loading /> }
-        <div className="header-name">
-          <h2>TrybeTunes</h2>
-          <h3 data-testid="header-user-name">{name}</h3>
-        </div>
-        <nav>
-          <Link to="/search" data-testid="link-to-search">Search</Link>
-          <Link to="/favorites" data-testid="link-to-favorites">Favorites</Link>
-          <Link to="/profile" data-testid="link-to-profile">Profile</Link>
-        </nav>
+        {
+          (loading === true)
+            ? (<Loading />)
+            : (
+              <div>
+                <div className="header-name">
+                  <h2>TrybeTunes</h2>
+                  <h3 data-testid="header-user-name">{name}</h3>
+                </div>
+                <nav>
+                  <Link to="/search" data-testid="link-to-search">Search</Link>
+                  <Link to="/favorites" data-testid="link-to-favorites">Favorites</Link>
+                  <Link to="/profile" data-testid="link-to-profile">Profile</Link>
+                </nav>
+              </div>
+            )
+        }
       </header>
     );
   }
