@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Loading from '../pages/Loading';
-import { addSong } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 export default class MusicCard extends Component {
   constructor() {
@@ -9,29 +9,47 @@ export default class MusicCard extends Component {
 
     this.state = {
       loading: false,
-      checked: false,
+      check: false,
     };
   }
 
+  // Tentando refazer o Requisito 10 pois parou de passar nos testes
+  componentDidMount() {
+    this.handleClick();
+  }
+
+  // Função criada para o requisito 9
+  // Recebi ajuda do Abdré Alves e André dos Santos - Turma 19A
+  handleClick = async () => {
+    const { trackId } = this.props;
+    const favoritesMusics = await getFavoriteSongs();
+
+    this.setState({
+      check: favoritesMusics.some((favorite) => favorite.trackId === trackId),
+    });
+  }
+
   // Usar a mesma lógica do component Login para essa função
-  // Concluído na mentoria com ajuda do Braddock e dos colegas André Alves e Hugo Mafra - Turma 19A
-  handleChange = ({ target }) => {
+  // Requisito 8 concluído na mentoria com ajuda do Braddock e dos colegas André Alves e Hugo Mafra - Turma 19A
+  handleChange = ({ target }, id) => {
     const { checked } = target;
-    const { id } = this.props;
     this.setState({
       loading: true,
-      checked,
+      check: true,
     },
     async () => {
-      await addSong(id);
+      if (checked) {
+        await addSong(id);
+      }
       this.setState({
         loading: false,
+        check: true,
       });
     });
   }
 
   render() {
-    const { loading, checked } = this.state;
+    const { loading, check } = this.state;
     const { music } = this.props;
     const { trackName, previewUrl, trackId } = music;
 
@@ -60,7 +78,8 @@ export default class MusicCard extends Component {
                     data-testid={ `checkbox-music-${trackId}` }
                     name="favorite-song"
                     onChange={ this.handleChange }
-                    checked={ checked }
+                    onClick={ this.handleClick }
+                    checked={ check }
                   />
                 </label>
               </>
@@ -77,5 +96,5 @@ MusicCard.propTypes = {
     previewUrl: PropTypes.string,
     trackId: PropTypes.number,
   }).isRequired,
-  id: PropTypes.string.isRequired,
+  trackId: PropTypes.string.isRequired,
 };
