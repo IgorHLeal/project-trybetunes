@@ -15,7 +15,9 @@ export default class Header extends Component {
   }
 
   async componentDidMount() {
-    // Mudança feita na função getUser após ver o código do colega Imar Mendes - Turma 19A; Ficou mais nítida a proposta do que eu precisava fazer;
+    // Mudança feita na função getUser após ver o código do colega Imar Mendes - Turma 19A; Ficou mais nítida a proposta do que eu precisava fazer:
+    // Eu declarava a const user e no seState eu acessava o user.name, ao desestruturar o { name }
+    // consigo acessá-lo diretamente no setState, como feito abaixo;
     const { name } = await getUser();
     this.setState({
       loading: false,
